@@ -1,0 +1,2 @@
+class SplitWord < ApplicationRecord
+end
