@@ -329,24 +329,25 @@ class WeaverController < ApplicationController
 
 
   def split
- #  	file = File.join(File.dirname(__FILE__), "../../lib/master_list.yml")
-	# @words = YAML.load_file(file)
+  	file = File.join(File.dirname(__FILE__), "../../lib/master_list.yml")
+	@words = YAML.load_file(file)
 
-	# @words.each do |word|
-	# 	x = SplitWord.new
-	# 	x.update(
-	# 		word: word,
-	# 		l0: word[0],
-	# 		l1: word[1],
-	# 		l2: word[2],
-	# 		l3: word[3],
-	# 		l4: word[4],
-	# 		l5: word[5],
-	# 		l6: word[6],
-	# 		l7: word[7],
-	# 		l8: word[8],
-	# 		l9: word[9]			
-	# 	)
-	# end
+	@words.each do |word|
+		x = SplitWord.new
+		x.update(
+			word: word,
+			l0: word[0],
+			l1: word[1],
+			l2: word[2],
+			l3: word[3],
+			l4: word[4],
+			l5: word[5],
+			l6: word[6],
+			l7: word[7],
+			l8: word[8],
+			l9: word[9]			
+		)
+	end
+	@list = SplitWord.all
   end
 end
