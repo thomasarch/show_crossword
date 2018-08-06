@@ -11,6 +11,9 @@ class WeaverController < ApplicationController
 
 		@words = SplitWord.all
 
+		# list limited to actual words
+		# @words = SplitWord.all.limit(24935)
+
 		# file_name2 = File.join(File.dirname(__FILE__), "../../lib/letter_followers.yml")
 		# @letter_followers = YAML.load_file(file_name2)
 
@@ -28,6 +31,24 @@ class WeaverController < ApplicationController
 
 		alphabet.each do |letter|
 			@roots[letter] = @words.where(l0: letter)
+		end
+
+
+		def add_word(word)
+			t = SplitWord.new
+			t.update(
+				word: word,
+				l0: word[0],
+				l1: word[1],
+				l2: word[2],
+				l3: word[3],
+				l4: word[4],
+				l5: word[5],
+				l6: word[6],
+				l7: word[7],
+				l8: word[8],
+				l9: word[9]
+			)
 		end
 
 		
@@ -185,10 +206,11 @@ class WeaverController < ApplicationController
 			# puts "down word: #{@down}"
 			# puts "depth: #{@depth}"
 			# puts "before #{@down_list}"
-			until @depth == 0
-				@down_list.select! {|word| word[0..@depth] != @down[0..@depth] }
-				@depth -= 1
-			end
+			
+			@down_list.select! {|word| word[0..(@depth + 1)] != @down[0..(@depth + 1)] }		
+			@depth = 0
+			
+			# end
 			# puts ""
 			# puts "after #{@down_list}"
 		end
@@ -228,7 +250,7 @@ class WeaverController < ApplicationController
 			while @down_list.count > 0
 				@down = @down_list.shift
 				@set_words["down"] = @down
-				puts "pair: #{@set_words[0]}, #{@down}"
+				# puts "pair: #{@set_words[0]}, #{@down}"
 
 
 		setup_search
@@ -246,12 +268,13 @@ class WeaverController < ApplicationController
 					@old_word[level] = @set_words[level]
 					@set_words[level] = @list[level].shift
 					puts "word #{level} #{@set_words}"
-					(level >= 4) ? @answers.push(@set_words.values) : ''
+					(level >= 3) ? @answers.push(@set_words.values) : ''
 					find_word_diff(level)
 					search_with_ignore(level)
 					spread_with_ignore(level)
 					builders_with_ignore(level)
 					@list[level + 1] = create_new_word_list(level)
+					set_depth(level)			
 					if @list[level + 1].count > 0 && level < 9
 						search_block(level + 1)
 					end
@@ -259,7 +282,6 @@ class WeaverController < ApplicationController
 					@set_words[level] = @list[level].shift
 					@answers.push(@set_words.values)
 				end
-				set_depth(level)			
 			end
 			@set_words.delete(level)
 		end
@@ -267,24 +289,6 @@ class WeaverController < ApplicationController
 
 
 		search_block(1)
-
-
-		def add_word(word)
-			t = SplitWord.new
-			t.update(
-				word: word,
-				l0: word[0],
-				l1: word[1],
-				l2: word[2],
-				l3: word[3],
-				l4: word[4],
-				l5: word[5],
-				l6: word[6],
-				l7: word[7],
-				l8: word[8],
-				l9: word[9]
-			)
-		end
 
 
 	prune_list
