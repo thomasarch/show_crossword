@@ -11,20 +11,11 @@ class WeaverController < ApplicationController
 
 		@words = SplitWord.all
 
-		# list limited to actual words
-		# @words = SplitWord.all.limit(24935)
-
-		# file_name2 = File.join(File.dirname(__FILE__), "../../lib/letter_followers.yml")
-		# @letter_followers = YAML.load_file(file_name2)
-
 		file5 = File.join(File.dirname(__FILE__), "../../lib/deep_followers.yml")
 		@deep_followers = YAML.load_file(file5)
 
 
 		
-		#
-		# Set @roots as hash of each starting letter list
-		#
 		alphabet = Array("A".."Z")
 
 		@roots = {}
@@ -267,7 +258,7 @@ class WeaverController < ApplicationController
 				unless level == 9
 					@old_word[level] = @set_words[level]
 					@set_words[level] = @list[level].shift
-					puts "word #{level} #{@set_words}"
+					# puts "word #{level} #{@set_words}"
 					(level >= 3) ? @answers.push(@set_words.values) : ''
 					find_word_diff(level)
 					search_with_ignore(level)
