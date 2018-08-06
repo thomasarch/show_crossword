@@ -246,7 +246,7 @@ class WeaverController < ApplicationController
 					@old_word[level] = @set_words[level]
 					@set_words[level] = @list[level].shift
 					puts "word #{level} #{@set_words}"
-					(level > 4) ? @answers.push(@set_words.values) : ''
+					(level >= 4) ? @answers.push(@set_words.values) : ''
 					find_word_diff(level)
 					search_with_ignore(level)
 					spread_with_ignore(level)
