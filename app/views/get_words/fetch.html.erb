@@ -1,0 +1,8 @@
+<p>
+	<% @words.each_with_index do |word, i| %>
+		<% if /^[A-Z]+/.match(word.upcase).to_s.length == 4 %>
+			<p><%= word %></p>
+			<p><%= @clues[i].text %></p>
+		<% end %>
+	<% end %>
+</p>

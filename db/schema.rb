@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_04_235329) do
+ActiveRecord::Schema.define(version: 2018_08_07_174159) do
+
+  create_table "four_letter_words", force: :cascade do |t|
+    t.string "word"
+    t.string "l0"
+    t.string "l1"
+    t.string "l2"
+    t.string "l3"
+    t.string "clue"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "split_words", force: :cascade do |t|
     t.string "word"

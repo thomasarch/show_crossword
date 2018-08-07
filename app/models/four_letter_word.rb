@@ -1,0 +1,2 @@
+class FourLetterWord < ApplicationRecord
+end
