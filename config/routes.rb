@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get '/doubleword', to: redirect('/doubleword')
+
+  get "/pages/:page" => "pages#show" 
+
   get 'weave_eight/show'
   get 'weave_five/show'
   get 'weave_four/show'

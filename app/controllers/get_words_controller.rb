@@ -4,24 +4,25 @@ class GetWordsController < ApplicationController
 
 	def fetch
 
-	  	
-	  	def get_words_from_page(page_number)
-			doc = Nokogiri::HTML(open("http://www.crosswordsolver.org/solve/--------/#{page_number}"))
-			words = doc.css("div[class=word]")
-			clues = doc.css("div[class=definition]")
+		@word_list = FiveLetterWord.all.limit(50)
 
-			words.each_with_index do |w, i|
-				word = w.text.strip.upcase
-				if /^[A-Z]+/.match(word).to_s.length == 8
-					split_word = {}
-					split_word[:word] = word
-					split_word[:clue] = clues[i].text
-					word.split('').each_with_index do |letter, index|
-						split_word[eval(":l#{index}")] = letter.upcase
-					end
-					entry = EightLetterWord.create(split_word)
-				end
-			end
+	  	def get_words_from_page(page_number)
+			@doc = Nokogiri::HTML(open("http://www.crosswordsolver.org/solve/-----/#{page_number}"))
+			@words = @doc.css("div[class=word]")
+			@clues = @doc.css("div[class=definition]")
+
+			# words.each_with_index do |w, i|
+			# 	word = w.text.strip.upcase
+			# 	if /^[A-Z]+/.match(word).to_s.length == 8
+			# 		split_word = {}
+			# 		split_word[:word] = word
+			# 		split_word[:clue] = clues[i].text
+			# 		word.split('').each_with_index do |letter, index|
+			# 			split_word[eval(":l#{index}")] = letter.upcase
+			# 		end
+			# 		entry = EightLetterWord.create(split_word)
+			# 	end
+			# end
 		end
 
 		def create_deep_followers
@@ -47,6 +48,7 @@ class GetWordsController < ApplicationController
 			end
 		end
 
+		get_words_from_page(400)
 
 	# counter = 26410
 	# until counter > 31070

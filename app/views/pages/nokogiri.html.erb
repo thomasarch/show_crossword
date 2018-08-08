@@ -1,0 +1,21 @@
+<div class="container">
+	<div class="container-header"><h2>doc = Raw Nokogiri:</h2></div>
+	<div class="container-body"><%= @doc %></div>
+</div>
+
+<div class="container">
+	<div class='container-header'><h2>words = doc.css("div[class=word]")</h2></div>
+	<div class='container-body'><%= @words %></div>
+</div>
+
+<div class="container">
+	<div class='container-header'><h2>words.text</h2></div>
+	<div class='container-body'>
+		<% @words.text.split(' ').each do |word| %>
+			<ul>				
+				<li><%= word.upcase %></li>
+			</ul>
+		<% end %>
+		
+	</div>
+</div>

@@ -1,0 +1,64 @@
+<div class="container">
+	<div class="container-header"><h2>Double Word Square</h2></div>
+	<div class="container-body">
+		
+Word squares that form different words across and down are known as "double word squares". Examples are:
+
+T O O
+U R N
+B E E	L A C K
+I R O N
+M E R E
+B A K E	S C E N T
+C A N O E
+A R S O N
+R O U S E
+F L E E T	A D M I T S
+D E A D E N
+S E R E N E
+O P I A T E
+R E N T E R
+B R E E D S
+The rows and columns of any double word square can be transposed to form another valid square. For example, the order 4 square above may also be written as:
+
+L I M B
+A R E A
+C O R K
+K N E E
+Double word squares are somewhat more difficult to find than ordinary word squares, with the largest known fully legitimate English examples (dictionary words only) being of order 8. Puzzlers.org gives an order 8 example dating from 1953, but this contains six place names. Jeff Grant's example in the February 1992 Word Ways is an improvement, having just two proper nouns ("Aloisias", a plural of the personal name Aloisia, a feminine form of Aloysius, and "Thamnata", a Biblical place-name):
+
+T R A T T L E D
+H E M E R I N E
+A P O T O M E S
+M E T A P O R E
+N A I L I N G S
+A L O I S I A S
+T E N T M A T E
+A S S E S S E D
+
+	</div>
+</div>
+
+
+
+<div class="container">
+	<div class="container-header"><h2>doc = Raw Nokogiri:</h2></div>
+	<div class="container-body"><%= @doc %></div>
+</div>
+
+<div class="container">
+	<div class='container-header'><h2>words = doc.css("div[class=word]")</h2></div>
+	<div class='container-body'><%= @words %></div>
+</div>
+
+<div class="container">
+	<div class='container-header'><h2>words.text</h2></div>
+	<div class='container-body'>
+		<% @words.text.split(' ').each do |word| %>
+			<ul>				
+				<li><%= word.upcase %></li>
+			</ul>
+		<% end %>
+		
+	</div>
+</div>
