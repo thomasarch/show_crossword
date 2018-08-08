@@ -1,0 +1,2 @@
+class FiveLetterWord < ApplicationRecord
+end

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  word: MyString
+  l0: MyString
+  l1: MyString
+  l2: MyString
+  l3: MyString
+  clue: MyString
+
+two:
+  word: MyString
+  l0: MyString
+  l1: MyString
+  l2: MyString
+  l3: MyString
+  clue: MyString

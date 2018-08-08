@@ -1,0 +1,2 @@
+class EightLetterWord < ApplicationRecord
+end

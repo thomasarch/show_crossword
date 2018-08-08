@@ -285,6 +285,5 @@ class WeaveFourController < ApplicationController
 
 	p @answers
 
-	fail
-  end
+ 
 end

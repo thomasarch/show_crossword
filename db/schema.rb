@@ -10,7 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_07_174159) do
+ActiveRecord::Schema.define(version: 2018_08_08_023913) do
+
+  create_table "eight_letter_words", force: :cascade do |t|
+    t.string "word"
+    t.string "l0"
+    t.string "l1"
+    t.string "l2"
+    t.string "l3"
+    t.string "l4"
+    t.string "l5"
+    t.string "l6"
+    t.string "l7"
+    t.string "clue"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "five_letter_words", force: :cascade do |t|
+    t.string "word"
+    t.string "l0"
+    t.string "l1"
+    t.string "l2"
+    t.string "l3"
+    t.string "clue"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "l4"
+  end
 
   create_table "four_letter_words", force: :cascade do |t|
     t.string "word"
