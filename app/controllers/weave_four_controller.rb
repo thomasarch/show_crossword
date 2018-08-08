@@ -1,7 +1,5 @@
-class WeaverController < ApplicationController
-  def search
-
-
+class WeaveFourController < ApplicationController
+  def show
   	now = Time.now
 		system 'clear'
 
@@ -9,13 +7,12 @@ class WeaverController < ApplicationController
 
 		root_letter = params[:letter].upcase
 
-		@words = SplitWord.all
+		@words = FourLetterWord.all
 
-		file5 = File.join(File.dirname(__FILE__), "../../lib/deep_followers.yml")
+		file5 = File.join(File.dirname(__FILE__), "../../lib/four_deep_followers.yml")
 		@deep_followers = YAML.load_file(file5)
 
 
-		fail
 		alphabet = Array("A".."Z")
 
 		@roots = {}
@@ -24,26 +21,7 @@ class WeaverController < ApplicationController
 			@roots[letter] = @words.where(l0: letter)
 		end
 
-
-		def add_word(word)
-			t = SplitWord.new
-			t.update(
-				word: word,
-				l0: word[0],
-				l1: word[1],
-				l2: word[2],
-				l3: word[3],
-				l4: word[4],
-				l5: word[5],
-				l6: word[6],
-				l7: word[7],
-				l8: word[8],
-				l9: word[9]
-			)
-		end
-
-		
-	
+			
 		def setup_search
 			array = []
 			@set_words[0].split('').each_with_index do |letter, i|
@@ -140,12 +118,6 @@ class WeaverController < ApplicationController
 				l1: builders[1],
 				l2: builders[2],
 				l3: builders[3],
-				l4: builders[4],
-				l5: builders[5],
-				l6: builders[6],
-				l7: builders[7],
-				l8: builders[8],
-				l9: builders[9]
 			).pluck(:word)
 		end
 
@@ -211,7 +183,6 @@ class WeaverController < ApplicationController
 
 
 
-
 		#
 		# This is where it all begins
 		# 	choose the first letter to test
@@ -219,7 +190,6 @@ class WeaverController < ApplicationController
 		root = @roots[root_letter].pluck(:word)
 
 		
-		counter = 0
 		while root.length > 1
 			@set_words = {}
 			@set_words[0] = root.shift
@@ -238,7 +208,8 @@ class WeaverController < ApplicationController
 
 
 			old_down = nil
-			while @down_list.count > 0
+			# while @down_list.count > 0
+			while @down_list.count > @down_list.count - 10
 				@down = @down_list.shift
 				@set_words["down"] = @down
 				# puts "pair: #{@set_words[0]}, #{@down}"
@@ -255,23 +226,23 @@ class WeaverController < ApplicationController
 		def search_block(level)
 			@old_word[level] = nil
 			while @list[level].count > 0	
-				unless level == 9
+				unless level == 3
 					@old_word[level] = @set_words[level]
 					@set_words[level] = @list[level].shift
-					# puts "word #{level} #{@set_words}"
-					(level >= 4) ? @answers.push(@set_words.values) : ''
+					puts "word #{level} #{@set_words}"
 					find_word_diff(level)
 					search_with_ignore(level)
 					spread_with_ignore(level)
 					builders_with_ignore(level)
 					@list[level + 1] = create_new_word_list(level)
 					set_depth(level)			
-					if @list[level + 1].count > 0 && level < 9
+					if @list[level + 1].count > 0 && level < 3
 						search_block(level + 1)
 					end
 				else
 					@set_words[level] = @list[level].shift
 					@answers.push(@set_words.values)
+					puts @set_words
 				end
 			end
 			@set_words.delete(level)
@@ -306,7 +277,7 @@ class WeaverController < ApplicationController
 	@answers.push(howlong)
 
 
-	file_name = File.join(File.dirname(__FILE__), "../../lib/answers/letter_logs/#{root_letter}.yml")
+	file_name = File.join(File.dirname(__FILE__), "../../lib/answers/four_letter_answers/#{root_letter}.yml")
 	
 	File.open(file_name, "w") do |file|
 		file.write @answers.to_yaml
@@ -314,35 +285,6 @@ class WeaverController < ApplicationController
 
 	p @answers
 
-  end
-
-
-
-
-
-
-
-
-  def split
-  	file = File.join(File.dirname(__FILE__), "../../lib/master_list.yml")
-	@words = YAML.load_file(file)
-
-	@words.each do |word|
-		x = SplitWord.new
-		x.update(
-			word: word,
-			l0: word[0],
-			l1: word[1],
-			l2: word[2],
-			l3: word[3],
-			l4: word[4],
-			l5: word[5],
-			l6: word[6],
-			l7: word[7],
-			l8: word[8],
-			l9: word[9]			
-		)
-	end
-	@list = SplitWord.all
+	fail
   end
 end
