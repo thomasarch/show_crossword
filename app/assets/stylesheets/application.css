@@ -28,7 +28,7 @@ h2 {
 }
 
 .container {
-	width: 90%;
+	width: 60%;
 	border: 1px solid #999;
 	border-radius: 6px;
 	margin-bottom: 48px;
@@ -54,5 +54,56 @@ h2 {
 	font-family: "Courier New", Courier, monospace;
 	width: 50%;
 	margin: 0 auto;
+	margin-top: 36px;
+	margin-bottom: 36px;
 	text-align: center;
+	font-size: 1.5em;
+}
+
+a {
+	color: grey;
+	text-decoration: none;
+}
+
+a:hover {
+	color:green;
+	text-decoration: none;
+}
+
+a:visited {
+	color: grey;
+}
+
+.xword-grid {
+	font-family: "Courier New", Courier, monospace;
+	letter-spacing: 24px;
+	line-height: 1.5;
+	padding: 8px 10px;
+	text-align: center;
+}
+
+.xword-grid h2 {
+	margin-right: -24px
+}
+
+.small {
+	font-size: 0.5em;
+	letter-spacing: 30px;
+	position: relative;
+}
+
+.a {
+	top: 26px;
+	left: -13px;
+}
+
+.d {
+	top: -8px;
+	left: 25px;
+}
+
+h4 {
+	postiion: relative;
+	margin-bottom:6px;
+
 }

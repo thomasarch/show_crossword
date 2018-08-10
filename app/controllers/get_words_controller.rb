@@ -35,12 +35,9 @@ class GetWordsController < ApplicationController
 				array.push(@words.where(l0: letter).pluck(:l2).uniq)
 				array.push(@words.where(l0: letter).pluck(:l3).uniq)
 				array.push(@words.where(l0: letter).pluck(:l4).uniq)
-				array.push(@words.where(l0: letter).pluck(:l5).uniq)
-				array.push(@words.where(l0: letter).pluck(:l6).uniq)
-				array.push(@words.where(l0: letter).pluck(:l7).uniq)
 				deep_followers[letter] = array
 
-				file_name = File.join(File.dirname(__FILE__), "../../lib/eight_deep_followers.yml")
+				file_name = File.join(File.dirname(__FILE__), "../../lib/five_deep_followers.yml")
 	
 				File.open(file_name, "w") do |file|
 					file.write deep_followers.to_yaml

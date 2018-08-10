@@ -1,0 +1,160 @@
+<div class="container">
+	<div class="container-header"><h2>Start with word pair</h2></div>
+
+	<div class="container-body">
+		<div class="xword-grid">
+			<h2>
+			&nbsp;<span class="small a">12345</span><br>
+			<span class="small d">&nbsp;</span>TABBY<br>
+			<span class="small d">6</span>A&nbsp;&nbsp;&nbsp;&nbsp;<br>
+			<span class="small d">7</span>B&nbsp;&nbsp;&nbsp;&nbsp;<br>
+			<span class="small d">8</span>E&nbsp;&nbsp;&nbsp;&nbsp;<br>
+			<span class="small d">9</span>R&nbsp;&nbsp;&nbsp;&nbsp;<br>
+			</h2>
+		</div>
+	</div>
+</div>
+
+
+<div class="container">
+	<div class="container-header"><h2>Find next word across</h2></div>
+
+	<div class="container-body">
+		<div class="xword-grid">
+			<h2>
+			&nbsp;<span class="small a">12345</span><br>
+			<span class="small d">&nbsp;</span>TABBY<br>
+			<span class="small d">6</span>A----<br>
+			<span class="small d">7</span>B&nbsp;&nbsp;&nbsp;&nbsp;<br>
+			<span class="small d">8</span>E&nbsp;&nbsp;&nbsp;&nbsp;<br>
+			<span class="small d">9</span>R&nbsp;&nbsp;&nbsp;&nbsp;<br>
+			</h2>
+		</div>
+
+		<h3>Possible letters for 6 across</h3>
+		<h4>letter 2:</h4>
+		<%= a6l2 = @deep_followers["A"][1].sort %><br>
+		<h4>letter 3:</h4>
+		<%= a6l3 = @deep_followers["A"][2].sort %><br>
+		<h4>letter 4:</h4>
+		<%= a6l4 = @deep_followers["A"][3].sort %><br>
+		<h4>letter 5:</h4>
+		<%= a6l5 = @deep_followers["A"][4].sort %><br>
+
+
+	</div>
+</div>
+
+
+
+<div class="container">
+	<div class="container-header"><h2>Check for valid down words</h2></div>
+
+	<div class="container-body">
+		<div class="xword-grid">
+			<h2>
+			&nbsp;<span class="small a">12345</span><br>
+			<span class="small d">&nbsp;</span>TABBY<br>
+			<span class="small d">6</span>A----<br>
+			<span class="small d">7</span>B&nbsp;&nbsp;&nbsp;&nbsp;<br>
+			<span class="small d">8</span>E&nbsp;&nbsp;&nbsp;&nbsp;<br>
+			<span class="small d">9</span>R&nbsp;&nbsp;&nbsp;&nbsp;<br>
+			</h2>
+		</div>		
+		
+
+		<h4>2 down second letter</h4>
+		<%= d2l2 = @words.where(l0:"A").pluck(:l1).uniq %>
+
+		<h4>3 down second letter</h4>
+		<%= d3l2 = @words.where(l0:"B").pluck(:l1).uniq %>
+
+		<h4>4 down second letter</h4>
+		<%= d4l2 = @words.where(l0:"B").pluck(:l1).uniq %>
+
+		<h4>5 down second letter</h4>
+		<%= d5l2 = @words.where(l0:"Y").pluck(:l1).uniq %>
+		
+
+
+	</div>
+</div>
+
+
+
+<div class="container">
+	<div class="container-header"><h2>Combine the two arrays</h2></div>
+
+	<div class="container-body">
+		<div class="xword-grid">
+			<h2>
+			&nbsp;<span class="small a">12345</span><br>
+			<span class="small d">&nbsp;</span>TABBY<br>
+			<span class="small d">6</span>A----<br>
+			<span class="small d">7</span>B&nbsp;&nbsp;&nbsp;&nbsp;<br>
+			<span class="small d">8</span>E&nbsp;&nbsp;&nbsp;&nbsp;<br>
+			<span class="small d">9</span>R&nbsp;&nbsp;&nbsp;&nbsp;<br>
+			</h2>
+		</div>		
+		
+
+		<h3>Possible letters for 6 across merged</h3>
+		<h4>letter 2 array:</h4>
+		<%= c2 = a6l2 & d2l2 %><br>
+		<h4>letter 3 array:</h4>
+		<%= c3 = a6l3 & d3l2 %><br>
+		<h4>letter 4 array:</h4>
+		<%= c4 = a6l4 & d4l2 %><br>
+		<h4>letter 5 array:</h4>
+		<%= c5 = a6l5 & d5l2 %><br>
+		
+
+
+	</div>
+</div>
+
+
+<div class="container">
+	<div class="container-header"><h2>Create a list of possible words from the combined arrays</h2></div>
+
+	<div class="container-body">
+		
+		<div class="xword-grid">
+			<h2>
+			&nbsp;<span class="small a">12345</span><br>
+			<span class="small d">&nbsp;</span>TABBY<br>
+			<span class="small d">6</span>A----<br>
+			<span class="small d">7</span>B&nbsp;&nbsp;&nbsp;&nbsp;<br>
+			<span class="small d">8</span>E&nbsp;&nbsp;&nbsp;&nbsp;<br>
+			<span class="small d">9</span>R&nbsp;&nbsp;&nbsp;&nbsp;<br>
+			</h2>
+		</div>	
+
+		<h3>
+			AllWords.where(letter1: "A", letter2: l2Array, letter3: l3Array, letter4: l4Array, letter5: l5Array):
+		</h3>
+
+		<%= list = @words.where(l0:"A", l1: c2, l2: c3, l3: c4, l4: c5).pluck(:word) %>
+
+	</div>
+</div>
+
+<div class="container">
+	<div class="container-header"><h2>Insert the next word and repeat</h2></div>
+
+	<div class="container-body">
+		<div class="xword-grid">
+			<h2>
+			&nbsp;<span class="small a">12345</span><br>
+			<span class="small d">&nbsp;</span>TABBY<br>
+			<span class="small d">6</span>AAHED<br>
+			<span class="small d">7</span>B&nbsp;&nbsp;&nbsp;&nbsp;<br>
+			<span class="small d">8</span>E&nbsp;&nbsp;&nbsp;&nbsp;<br>
+			<span class="small d">9</span>R&nbsp;&nbsp;&nbsp;&nbsp;<br>
+			</h2>
+		</div>
+	</div>
+</div>
+
+
+<%= link_to 'next', '/answer/t/2' %>

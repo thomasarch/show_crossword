@@ -1,0 +1,40 @@
+<div class="container">
+	<br><br>
+	<div class="xword-grid">
+		<h2>
+		<% across = @answers[params[:number].to_i] %>
+		&nbsp;<span class="small a">12345</span><br>
+		<span class="small d">&nbsp;</span><%= across[0] %><br>
+		<span class="small d">6</span><%= across[2] %><br>
+		<span class="small d">7</span><%= across[3] %><br>
+		<span class="small d">8</span><%= across[4] %><br>
+		<span class="small d">9</span><%= across[5] %><br>
+		</h2>
+	</div>
+
+	<div class="container-body">
+
+		<% down = get_down_words(across) %>
+			
+		<h3><strong>Across</strong></h3>
+		<p><strong>1</strong> <%= get_clue(across[0]) %></p>
+		<p><strong>6</strong> <%= get_clue(across[2]) %></p>
+		<p><strong>7</strong> <%= get_clue(across[3]) %></p>
+		<p><strong>8</strong> <%= get_clue(across[4]) %></p>
+		<p><strong>9</strong> <%= get_clue(across[5]) %></p>
+
+		<br>
+		<h3><strong>Down</strong></h3>
+		<p><strong>1</strong> <%= get_clue(down[0]) %></p>
+		<p><strong>2</strong> <%= get_clue(down[1]) %></p>
+		<p><strong>3</strong> <%= get_clue(down[2]) %></p>
+		<p><strong>4</strong> <%= get_clue(down[3]) %></p>
+		<p><strong>5</strong> <%= get_clue(down[4]) %></p>
+
+
+	</div>
+	<br><br>
+
+</div>
+
+

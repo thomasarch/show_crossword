@@ -1,4 +1,4 @@
-class WeaveFiveController < ApplicationController
+class AnswerController < ApplicationController
   def show
   	now = Time.now
 		system 'clear'
@@ -6,6 +6,8 @@ class WeaveFiveController < ApplicationController
 		require 'yaml'
 
 		root_letter = params[:letter].upcase
+		@answer_number = (params[:number].to_i + 1)
+		# fail
 
 		@words = FiveLetterWord.all
 
@@ -119,7 +121,7 @@ class WeaveFiveController < ApplicationController
 				l2: builders[2],
 				l3: builders[3],
 				l4: builders[4]
-			).pluck(:word)
+			).where.not(word: @set_words.values).pluck(:word)
 		end
 
 
@@ -179,7 +181,7 @@ class WeaveFiveController < ApplicationController
 			# puts "after #{@down_list}"
 		end
 
-		@answers = []
+		@answers = [[]]
 
 
 
@@ -190,8 +192,8 @@ class WeaveFiveController < ApplicationController
 		#
 		root = @roots[root_letter].pluck(:word)
 
-		
-		while root.length > 1 
+		 
+		while root.length > 1 && @answers.count < @answer_number
 			@set_words = {}
 			@set_words[0] = root.shift
 			@down_list = root.clone
@@ -209,11 +211,9 @@ class WeaveFiveController < ApplicationController
 
 
 			old_down = nil
-			while @down_list.count > 0
-			# while @down_list.count > @down_list.count - 10
+			while @down_list.count > 0 && @answers.count < @answer_number
 				@down = @down_list.shift
 				@set_words["down"] = @down
-				# puts "pair: #{@set_words[0]}, #{@down}"
 
 
 		setup_search
@@ -226,7 +226,7 @@ class WeaveFiveController < ApplicationController
 
 		def search_block(level)
 			@old_word[level] = nil
-			while @list[level].count > 0	
+			while @list[level].count > 0 && @answers.count < @answer_number
 				unless level == 4
 					@old_word[level] = @set_words[level]
 					@set_words[level] = @list[level].shift
@@ -237,14 +237,13 @@ class WeaveFiveController < ApplicationController
 					builders_with_ignore(level)
 					@list[level + 1] = create_new_word_list(level)
 					set_depth(level)			
-					if @list[level + 1].count > 0 && level < 4
+					if @list[level + 1].count > 0 && level < 4 
 						search_block(level + 1)
 					end
 				else
 					@set_words[level] = @list[level].shift
 					@answers.push(@set_words.values)
 					puts "four deep: #{@set_words}"
-					fail
 				end
 			end
 			@set_words.delete(level)
@@ -264,16 +263,10 @@ class WeaveFiveController < ApplicationController
 	#
 	end
 
-	#
-	# end level 0
 	# pick new root word
-	#
 	end
 
 
-	#
-	# end weaver
-	#
 	later = Time.now
 	howlong = "took #{later - now} seconds"
 	@answers.push(howlong)
@@ -285,7 +278,5 @@ class WeaveFiveController < ApplicationController
 	end
 
 	p @answers
-
   end
-
 end
