@@ -1,4 +1,6 @@
-Rails.application.routes.draw do
+Rails.application.routes.draw do 
+  root to: 'pages#show', page: 'doubleword'
+
   get 'answer/show'
 
   get "/pages/:page" => "pages#show"
