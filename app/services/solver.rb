@@ -25,6 +25,7 @@ class Solver
     end
 
 
+
     def setup_search
       array = []
       @set_words[0].split('').each_with_index do |letter, i|
@@ -277,7 +278,6 @@ class Solver
     File.open(file_name, "w") do |file|
       file.write @answers.to_yaml
     end
-
     [@answers, @words]
   end
 end
