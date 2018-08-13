@@ -5,7 +5,7 @@ module AnswerHelper
 			word = ''
 			6.times do |count|
 				unless count == 1
-					word.concat(array[count][letter]) 
+					word.concat(array[count][letter])
 				end
 			end
 			down_list.push(word)
