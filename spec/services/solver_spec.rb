@@ -14,5 +14,12 @@ RSpec.describe Solver do
 
   it 'returns the first found array of answers and words' do
     expect(Solver.new(params).call[0][0]).to eq ["HAART", "HABER", "AALII", "BLICE", "EIGER", "RINDS"]
+    # expect(Solver.new(params).call[0][0]).to eq [
+    #   ['H','A','A','R','T'],
+    #   ['A','A','L','I','I'],
+    #   ['B','L','I','C','E'],
+    #   ['E','I','G','E','R'],
+    #   ['R','I','N','D','S']
+    # ]
   end
 end

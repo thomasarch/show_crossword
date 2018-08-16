@@ -19,10 +19,9 @@ class Solver
     # 	choose the first letter to test
     #
     root_letter_words = @roots_words_hash[@root_letter].pluck(:word)
-
     while root_letter_words.length > 1 && @answers.count < @answer_number
       @set_words = {}
-      @set_words[0] = root_letter_words.shift
+      @set_words[:across0] = root_letter_words.shift
       @down_list = root_letter_words.clone
 
       # sets up the inital hashes
@@ -37,7 +36,7 @@ class Solver
       old_down = nil
       while @down_list.count > 0 && @answers.count < @answer_number
         @down = @down_list.shift
-        @set_words["down"] = @down
+        @set_words[:down0] = @down
 
         setup_search
 
@@ -48,9 +47,9 @@ class Solver
         search_block(1)
 
         prune_list
-        hold = @set_words[0]
+        hold = @set_words[:across0]
         @set_words = {}
-        @set_words[0] = hold
+        @set_words[:across0] = hold
 
         # end level 0 pick new down word
       end
@@ -85,7 +84,7 @@ class Solver
 
   def setup_search
     array = []
-    @set_words[0].split('').each_with_index do |letter, i|
+    @set_words[:across0].split('').each_with_index do |letter, i|
       unless i == 0
         array[i] = @roots_words_hash[letter]
       end
