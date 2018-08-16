@@ -2,35 +2,28 @@ require 'yaml'
 
 class Solver
 
-  def call(params)
-    now = Time.now
-    system 'clear'
-    root_letter = params[:letter].upcase
-    @answer_number = (params[:number].to_i + 1)
-    # fail
-
+  def initialize(args)
+    @root_letter = args[:letter].upcase
+    @answer_number = (args[:number].to_i)
     @words = FiveLetterWord.all
-    file0 = File.join(File.dirname(__FILE__), "../../lib/five_deep_followers.yml")
-    @deep_followers = YAML.load_file(file0)
-    alphabet = Array("A".."Z")
-    @roots = {}
+    @deep_followers = get_deep_followers
+    @roots_words_hash = get_root_words(@words)
+  end
 
-    alphabet.each do |letter|
-      @roots[letter] = @words.where(l0: letter)
-    end
-
-    @answers = [[]]
+  def call
+    # now = Time.now
+    @answers = []
 
     #
     # This is where it all begins
     # 	choose the first letter to test
     #
-    root = @roots[root_letter].pluck(:word)
+    root_letter_words = @roots_words_hash[@root_letter].pluck(:word)
 
-    while root.length > 1 && @answers.count < @answer_number
+    while root_letter_words.length > 1 && @answers.count < @answer_number
       @set_words = {}
-      @set_words[0] = root.shift
-      @down_list = root.clone
+      @set_words[0] = root_letter_words.shift
+      @down_list = root_letter_words.clone
 
       # sets up the inital hashes
       @searches = {}
@@ -60,16 +53,16 @@ class Solver
         @set_words[0] = hold
 
         # end level 0 pick new down word
-        end
-
-      # pick new root word
       end
 
-    later = Time.now
-    howlong = "took #{later - now} seconds"
-    @answers.push(howlong)
+      # pick new root word
+    end
 
-    file_name = File.join(File.dirname(__FILE__), "../../lib/answers/five_letter_answers/#{root_letter}.yml")
+    # later = Time.now
+    # howlong = "took #{later - now} seconds"
+    # @answers.push(howlong)
+
+    file_name = File.join(File.dirname(__FILE__), "../../lib/answers/five_letter_answers/#{@root_letter}.yml")
 
     File.open(file_name, "w") do |file|
       file.write @answers.to_yaml
@@ -79,11 +72,22 @@ class Solver
 
   private
 
+  def get_deep_followers
+    deep_followers_File = File.join(File.dirname(__FILE__), "../../lib/five_deep_followers.yml")
+    YAML.load_file(deep_followers_File)
+  end
+
+  def get_root_words(words)
+    Array("A".."Z").map do |letter|
+      [letter, words.where(l0: letter)]
+    end.to_h
+  end
+
   def setup_search
     array = []
     @set_words[0].split('').each_with_index do |letter, i|
       unless i == 0
-        array[i] = @roots[letter]
+        array[i] = @roots_words_hash[letter]
       end
     end
     @searches[0] = array

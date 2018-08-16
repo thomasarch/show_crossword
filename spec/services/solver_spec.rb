@@ -10,10 +10,9 @@ RSpec.describe Solver do
   #   JSON.parse(word_json).each { |word| FiveLetterWord.create(word) }
   # end
 
-  let(:solver) { Solver.new }
   let(:params) { { letter: "h", number: "1"} }
 
   it 'returns the first found array of answers and words' do
-    expect(solver.call(params)[0][1]).to eq ["HAART", "HABER", "AALII", "BLICE", "EIGER", "RINDS"]
+    expect(Solver.new(params).call[0][0]).to eq ["HAART", "HABER", "AALII", "BLICE", "EIGER", "RINDS"]
   end
 end
