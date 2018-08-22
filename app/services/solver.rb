@@ -4,7 +4,12 @@ class Solver
 
   def initialize(args)
     @root_letter = args[:letter].upcase
-    @answer_number = (args[:number].to_i)
+    if args[:number] == 'r'
+      @answer_number = 1
+      @random = true
+    else
+      @answer_number = (args[:number].to_i)
+    end
     @words = FiveLetterWord.all
     @deep_followers = get_deep_followers
     @roots_words_hash = get_root_words(@words)
@@ -16,7 +21,11 @@ class Solver
     
     while root_letter_words.length > 1 && @answers.count < @answer_number
       @set_words = {}
-      @set_words[:across0] = root_letter_words.shift
+      if @random == true
+        @set_words[:across0] = root_letter_words.delete(root_letter_words.sample)
+      else
+        @set_words[:across0] = root_letter_words.shift
+      end
       @down_list = root_letter_words.clone
       @searches = {}
       @spreads = {}
@@ -28,7 +37,11 @@ class Solver
       old_down = nil
       
       while @down_list.count > 0 && @answers.count < @answer_number
-        @down = @down_list.shift
+        if @random == true
+          @down = @down_list.delete(@down_list.sample)
+        else
+          @down = @down_list.shift
+        end
         @set_words[:down0] = @down
         search(0)
         spread(0)

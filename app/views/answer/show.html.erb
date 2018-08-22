@@ -2,7 +2,11 @@
 	<br><br>
 	<div class="xword-grid">
 		<h2>
-		<% across = @answers[params[:number].to_i] %>
+		<% if params[:number] == 'r' %>
+			<% across = @answers[0] %>
+		<% else %>
+			<% across = @answers[params[:number].to_i - 1] %>
+		<% end %>
 		&nbsp;<span class="small a">12345</span><br>
 		<span class="small d">&nbsp;</span><%= across[0] %><br>
 		<span class="small d">6</span><%= across[2] %><br>
