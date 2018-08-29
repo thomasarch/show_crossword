@@ -54,11 +54,11 @@ class Solver
       end
     end
 
-    file_name = File.join(File.dirname(__FILE__), "../../lib/answers/five_letter_answers/#{@root_letter}.yml")
+    # file_name = File.join(File.dirname(__FILE__), "../../lib/answers/five_letter_answers/#{@root_letter}.yml")
 
-    File.open(file_name, "w") do |file|
-      file.write @answers.to_yaml
-    end
+    # File.open(file_name, "w") do |file|
+    #   file.write @answers.to_yaml
+    # end
     [@answers, @words]
   end
 
