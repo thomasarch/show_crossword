@@ -12,7 +12,7 @@ Then navigate to localhost:3000 in a browser
 The first few pages explain double word squares and show how the program works.
 
 To see the word squares themselves goto:
-localhost:3000/answer/*some letter here*/*number of solution or 'r' for random
+localhost:3000/answer/*some letter here*/*number of solution or 'r' for random*
 
 ex -
 localhost:3000/answer/t/5
