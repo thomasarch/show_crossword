@@ -1,7 +1,7 @@
 [Double Word Square](https://en.wikipedia.org/wiki/Word_square#Double_word_squares)
 generator.
 
-I scrapped thousands of words and their definitions from a crossword solver site to use as my dictionary
+I scraped thousands of words and their definitions from a crossword solver site to use as my dictionary
 then wrote a program that would find and display valid word squares.
 
 To use, run a rails server in the terminal:
