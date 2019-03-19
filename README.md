@@ -15,7 +15,7 @@ To see the word squares themselves goto:
 
 localhost:3000/answer/*some letter here*/*number of solution or 'r' for random*
 
-ex:
+examples:
 
 * *localhost:3000/answer/t/5*
 
